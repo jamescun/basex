@@ -65,3 +65,69 @@ func TestDecode(t *testing.T) {
 		})
 	}
 }
+
+func BenchmarkEncodeBase16(b *testing.B) {
+	dst := make([]byte, 22)
+	src := []byte("hello world")
+
+	b.SetBytes(int64(len(src)))
+
+	for i := 0; i < b.N; i++ {
+		Base16.Encode(dst, src)
+	}
+}
+
+func BenchmarkEncodeBase32(b *testing.B) {
+	dst := make([]byte, 18)
+	src := []byte("hello world")
+
+	b.SetBytes(int64(len(src)))
+
+	for i := 0; i < b.N; i++ {
+		Base32.Encode(dst, src)
+	}
+}
+
+func BenchmarkEncodeBase62(b *testing.B) {
+	dst := make([]byte, 15)
+	src := []byte("hello world")
+
+	b.SetBytes(int64(len(src)))
+
+	for i := 0; i < b.N; i++ {
+		Base62.Encode(dst, src)
+	}
+}
+
+func BenchmarkDecodeBase16(b *testing.B) {
+	dst := make([]byte, 12)
+	src := []byte("68656c6c6f20776f726c64")
+
+	b.SetBytes(int64(len(src)))
+
+	for i := 0; i < b.N; i++ {
+		Base16.Decode(dst, src)
+	}
+}
+
+func BenchmarkDecodeBase32(b *testing.B) {
+	dst := make([]byte, 12)
+	src := []byte("38CNP6RVS0EXQQ4V34")
+
+	b.SetBytes(int64(len(src)))
+
+	for i := 0; i < b.N; i++ {
+		Base32.Decode(dst, src)
+	}
+}
+
+func BenchmarkDecodeBase62(b *testing.B) {
+	dst := make([]byte, 12)
+	src := []byte("aaWF93RVY4AwqvW")
+
+	b.SetBytes(int64(len(src)))
+
+	for i := 0; i < b.N; i++ {
+		Base62.Decode(dst, src)
+	}
+}

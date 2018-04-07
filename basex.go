@@ -38,7 +38,6 @@ func (b *BaseX) Encode(dst, src []byte) {
 	}
 
 	digits := make([]int, 1, len(dst))
-	digits[0] = 0
 
 	for _, c := range src {
 		carry := int(c)
@@ -89,7 +88,7 @@ func (b *BaseX) Decode(dst, src []byte) (int, error) {
 		return 0, nil
 	}
 
-	bytes := []int{0}
+	bytes := make([]int, 1, len(dst))
 
 	for _, x := range src {
 		v, ok := b.reverse[x]
